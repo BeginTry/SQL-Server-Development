@@ -120,3 +120,10 @@ INSERT INTO #TsqlCommands(Cmd) VALUES ('DEALLOCATE ' + QUOTENAME('cur' + @TableN
 SELECT *
 FROM #TsqlCommands c
 ORDER BY c.ID
+
+/*
+	--Examples:
+	EXEC dbo.GenerateCursorCommands @Database = 'master', @SchemaName = 'information_schema', @TableName = 'tables'
+	EXEC dbo.GenerateCursorCommands @Database = 'model', @SchemaName = 'sys', @TableName = 'objects'
+	EXEC dbo.GenerateCursorCommands @Database = 'AdventureWorks', @SchemaName = 'HumanResources', @TableName = 'Employee'
+*/
