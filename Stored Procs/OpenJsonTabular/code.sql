@@ -69,3 +69,23 @@ BEGIN
 	EXEC (@Tsql);
 END
 
+/*
+	--Examples:
+
+	DECLARE @Json NVARCHAR(MAX) =
+	(
+		SELECT * 
+		FROM [AdventureWorks].[Production].[ProductListPriceHistory]
+		FOR JSON AUTO
+	)
+	EXEC tempdb.dbo.OpenJsonTabular @Json;
+
+
+	DECLARE @Json NVARCHAR(MAX) =
+	(
+		SELECT * 
+		FROM [msdb].[sys].[objects]
+		FOR JSON AUTO
+	)
+	EXEC tempdb.dbo.OpenJsonTabular @Json;
+*/
