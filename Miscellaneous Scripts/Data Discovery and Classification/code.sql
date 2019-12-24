@@ -41,7 +41,11 @@ SELECT
 INTO #FullSchema
     FROM
      sys.schemas S
-     INNER JOIN sys.tables T ON S.schema_id = T.schema_id  AND T.is_memory_optimized = 0 AND T.temporal_type <> 1
+     INNER JOIN sys.tables T ON S.schema_id = T.schema_id  ' + 
+		--  is_memory_optimized	bit		--Applies to: SQL Server 2014 (12.x) and later and Azure SQL Database.
+		--  temporal_type	tinyint		--Applies to: SQL Server 2016 (13.x) and later and Azure SQL Database.
+		CASE WHEN COLUMNPROPERTY(OBJECT_ID('sys.tables'), 'is_memory_optimized', 'columnid') IS NOT NULL THEN 'AND T.is_memory_optimized = 0 ' ELSE '' END +
+		CASE WHEN COLUMNPROPERTY(OBJECT_ID('sys.tables'), 'temporal_type', 'columnid') IS NOT NULL THEN 'AND T.temporal_type <> 1 ' ELSE '' END + '
      INNER JOIN (SELECT name as [Name],
                     object_id,
                     column_id,
