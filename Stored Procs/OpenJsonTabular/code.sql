@@ -63,7 +63,10 @@ BEGIN
 
 	SELECT @Tsql = 'SELECT ' + CHAR(13) + CHAR(10) +
 		@Tsql + CHAR(13) + CHAR(10) +
-	'FROM OPENJSON(''' + @Json + ''') j';
+	'FROM OPENJSON(''' + 
+		--Ugh. This is awkward...replace each quote with two quotes.
+		REPLACE(@Json, CHAR(39), CHAR(39) + CHAR(39)) + 
+		''') j';
 
 	--SELECT @Tsql;
 	EXEC (@Tsql);
