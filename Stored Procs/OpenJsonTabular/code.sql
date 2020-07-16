@@ -33,7 +33,7 @@ BEGIN
 			--JSON string (double-quoted Unicode with backslash escaping)
 			WHEN k.type = 1 THEN 
 				CASE 
-					WHEN TRY_CAST(k.[value] AS DATETIME) IS NOT NULL THEN 'DATETIME'	
+					WHEN TRY_CAST(k.[value] AS DATETIME) IS NOT NULL AND k.[value] <> '' THEN 'DATETIME'	
 					ELSE 'VARCHAR(MAX)'	
 				END
 
