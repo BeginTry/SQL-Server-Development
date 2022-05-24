@@ -1,6 +1,7 @@
 /*
-	This script uses procedure sp_foreachdb (credit @AaronBertrand) to 
-	find data classification recommendations for each database.
+	This script uses procedure sp_ineachdb to find 
+	data classification recommendations for each database.
+	https://github.com/BrentOzarULTD/SQL-Server-First-Responder-Kit/blob/dev/sp_ineachdb.sql
 */
 CREATE TABLE #DataDiscoveryAndClassification (
 	DdacId INT IDENTITY PRIMARY KEY,
@@ -117,7 +118,4 @@ IF OBJECT_ID(''''tempdb.dbo.#FullSchema'''', ''''U'''') IS NOT NULL DROP TABLE #
 
 ';
 
-EXEC sp_foreachdb @command = @cmd;
-
-SELECT *
-FROM #DataDiscoveryAndClassification
+EXEC sp_ineachdb @command = @cmd;
